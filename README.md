@@ -1,1 +1,4 @@
-# Проект автотестов QA Feels Good
+# QA Feels Good Project
+
+## Как запускать тесты локально:
+poetry run pytest
