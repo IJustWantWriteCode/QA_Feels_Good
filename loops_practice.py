@@ -1,6 +1,7 @@
 import random
 import time
 
+
 class LoopsPractice:
 
     COUNT_ITER_IN_INT_CYCLE = 8
@@ -31,12 +32,13 @@ class LoopsPractice:
         while iteration < self.COUNT_ITER_ROSTICS:
             iteration += 1
             load = random.randint(self.MIN_LOAD_ROSTICS, self.MAX_LOAD_ROSTICS)
-            print(f'Нагрузка : {load}%')
+            print(f"Нагрузка : {load}%")
             if load <= self.HIGH_LOAD_ROSTICS:
                 print("Нагрузка в пределах нормы")
             else:
                 print("Высокая нагрузка!")
             time.sleep(self.TIME_SLEEP_ROSTICS)
+
 
 practice = LoopsPractice()
 
