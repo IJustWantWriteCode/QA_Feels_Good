@@ -26,3 +26,8 @@ target-version = ['py314']
 [tool.flake8]
 exclude = [".venv", ".git", "__pycache__"]
 max-line-length = 88
+[dependency-groups]
+dev = [
+    "pytest (>=9.1.1,<10.0.0)",
+    "pytest-rich (>=0.2.0,<0.3.0)"
+]
