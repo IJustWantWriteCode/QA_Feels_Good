@@ -1,4 +1,17 @@
 # QA Feels Good Project
 
-## Как запускать тесты локально:
-poetry run pytest
+
+
+## Клонирование репозитория:
+git clone https://github.com/IJustWantWriteCode/QA_Feels_Good.git
+cd QA_Feels_Good
+
+
+
+## Настройка окружения
+poetry install
+cp .env.example .env
+
+## Запуск тестов
+poetry run pytest 
+
