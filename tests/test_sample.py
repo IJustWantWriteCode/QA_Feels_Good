@@ -29,12 +29,12 @@ def run_around_tests():
     print("\nТест окончен\n")
 
 
-def test_sample_1(start_tests, random_int_for_test):
+def test_sample_1(start_tests, random_int_for_test, page):
     a, b = random_int_for_test
     assert a + b == b + a
 
 
-def test_sample_2(random_int_for_test):
+def test_sample_2(random_int_for_test, page):
     a, b = random_int_for_test
     assert not a - b == b - a
 
@@ -59,7 +59,7 @@ def test_sample_2(random_int_for_test):
 @pytest.mark.xfail(
     strict=False, reason="Урон может быть недостаточным в некоторых комбинациях"
 )
-def test_damage_and_armor(percent_crit, damage, bonus_armor, armor):
+def test_damage_and_armor(percent_crit, damage, bonus_armor, armor, page):
 
     total_damage = round(percent_crit * damage, 2)
     total_armor = round(bonus_armor * armor, 2)
