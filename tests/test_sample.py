@@ -55,7 +55,7 @@ def test_sample_2(random_int_for_test, page):
     ],
     ids=["high_level_armor", "low_level_armor"],
 )
-@pytest.mark.smoke
+@pytest.mark.ui
 @pytest.mark.xfail(
     strict=False, reason="Урон может быть недостаточным в некоторых комбинациях"
 )
