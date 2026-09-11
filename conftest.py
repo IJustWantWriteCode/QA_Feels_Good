@@ -1,6 +1,7 @@
 import pytest
 import random
 from playwright.sync_api import sync_playwright
+import requests
 
 
 @pytest.fixture()
@@ -18,3 +19,10 @@ def page():
         yield page
         context.close()
         browser.close()
+
+
+@pytest.fixture(scope="session")
+def api_session():
+    session = requests.Session()
+    yield session
+    session.close()
