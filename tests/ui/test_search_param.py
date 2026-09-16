@@ -15,3 +15,4 @@ def test_duckduckgo_search_parametrized(page: Page, query: str) -> None:
     expect(results.first).to_be_visible(timeout=10000)
 
     assert results.count() >= 5
+    assert query in page.url
