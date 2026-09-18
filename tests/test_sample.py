@@ -1,11 +1,15 @@
-import pytest
+from collections.abc import Generator, Iterator
 from datetime import datetime
+from typing import Any
+
+import pytest
+from playwright.sync_api import Page
 
 
 @pytest.fixture(scope="module")
-def start_tests():
+def start_tests() -> Generator[None, None, None]:
     timestamp = datetime.now().strftime("%H:%M:%S.%f")[:-3]
-    db_state = {"status_type": "connected", "data": [1, 2, 3]}
+    db_state: dict[str, Any] = {"status_type": "connected", "data": [1, 2, 3]}
     print(
         f"\n[{timestamp}]Начат прогон тестов из файла test_sample.py. "
         f"Состояние: {db_state['status_type']}. "
@@ -23,18 +27,20 @@ def start_tests():
 
 
 @pytest.fixture(autouse=True)
-def run_around_tests():
+def run_around_tests() -> Iterator[None]:
     print("Тест начат")
     yield
     print("\nТест окончен\n")
 
 
-def test_sample_1(start_tests, random_int_for_test, page):
+def test_sample_1(
+    start_tests: None, random_int_for_test: tuple[int, int], page: Page
+) -> None:
     a, b = random_int_for_test
     assert a + b == b + a
 
 
-def test_sample_2(random_int_for_test, page):
+def test_sample_2(random_int_for_test: tuple[int, int], page: Page) -> None:
     a, b = random_int_for_test
     assert not a - b == b - a
 
@@ -59,7 +65,13 @@ def test_sample_2(random_int_for_test, page):
 @pytest.mark.xfail(
     strict=False, reason="Урон может быть недостаточным в некоторых комбинациях"
 )
-def test_damage_and_armor(percent_crit, damage, bonus_armor, armor, page):
+def test_damage_and_armor(
+    percent_crit: float | int,
+    damage: int,
+    bonus_armor: float | int,
+    armor: int,
+    page: Page,
+) -> None:
 
     total_damage = round(percent_crit * damage, 2)
     total_armor = round(bonus_armor * armor, 2)

@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import requests
 from requests import Session
 
@@ -5,11 +7,11 @@ BASE_URL = "https://jsonplaceholder.typicode.com"
 TIMEOUT = 10
 
 
-def get_post(session: Session, post_id: int) -> dict:
+def get_post(session: Session, post_id: int) -> dict[str, Any]:
     url = f"{BASE_URL}/posts/{post_id}"
     response = session.get(url, timeout=TIMEOUT)
     response.raise_for_status()
-    return response.json()
+    return cast(dict[str, Any], response.json())
 
 
 with requests.Session() as session:

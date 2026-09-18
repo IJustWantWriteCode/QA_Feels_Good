@@ -1,7 +1,9 @@
+from typing import Self
+
 from playwright.sync_api import expect
+
 from .base_page import BasePage
 from .cart_page import CartPage
-from typing import Self
 
 
 class ProductDetailPage(BasePage):

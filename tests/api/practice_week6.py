@@ -1,4 +1,7 @@
-from pydantic import BaseModel, Field, field_validator, ConfigDict, TypeAdapter
+from typing import Any
+
+from pydantic import BaseModel, ConfigDict, Field, TypeAdapter, field_validator
+from requests import Session
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 TIMEOUT = 10
@@ -37,7 +40,7 @@ class User(BaseModel):
         return v
 
 
-def test_get_post_validates_with_pydantic(api_session):
+def test_get_post_validates_with_pydantic(api_session: Session) -> None:
     response = api_session.get(f"{BASE_URL}/posts/1", timeout=TIMEOUT)
     response.raise_for_status()
     data = response.json()
@@ -46,7 +49,7 @@ def test_get_post_validates_with_pydantic(api_session):
     assert post.userId == 1, "userId should be 1"
 
 
-def test_get_posts_by_user_id(api_session):
+def test_get_posts_by_user_id(api_session: Session) -> None:
     response = api_session.get(f"{BASE_URL}/posts?userId=1", timeout=TIMEOUT)
     response.raise_for_status()
     posts_adapter = TypeAdapter(list[Post])
@@ -54,12 +57,12 @@ def test_get_posts_by_user_id(api_session):
     assert len(posts) > 0, "response don`t should be empty"
 
 
-def test_create_post_returns_201_and_validates(api_session):
+def test_create_post_returns_201_and_validates(api_session: Session) -> None:
     headers = {
         "Content-Type": "application/json; charset=utf-8",
     }
 
-    body = {"title": "title", "body": "body", "userId": 1}
+    body: dict[str, Any] = {"title": "title", "body": "body", "userId": 1}
 
     response = api_session.post(f"{BASE_URL}/posts", headers=headers, json=body)
     response.raise_for_status()
@@ -71,7 +74,7 @@ def test_create_post_returns_201_and_validates(api_session):
     assert posts.body == "body", "body should be 'body'"
 
 
-def test_delete_post_returns_200_or_204(api_session):
+def test_delete_post_returns_200_or_204(api_session: Session) -> None:
     response = api_session.delete(f"{BASE_URL}/posts/1", timeout=TIMEOUT)
     response.raise_for_status()
     assert (

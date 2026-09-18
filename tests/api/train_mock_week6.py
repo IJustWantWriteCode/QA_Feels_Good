@@ -1,7 +1,9 @@
 import pytest
 import requests
 import responses
-from pydantic import BaseModel, Field, field_validator, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pytest_mock import MockerFixture
+from requests import Session
 
 BASE_URL = "https://jsonplaceholder.typicode.com"
 TIMEOUT = 10
@@ -31,7 +33,9 @@ class Post(BaseModel):
         (2, "Maybe_Mocked", 201),
     ],
 )
-def test_get_post_success(api_session, post_id, title, status_code):
+def test_get_post_success(
+    api_session: Session, post_id: int, title: str, status_code: int
+) -> None:
     responses.add(
         responses.GET,
         f"{BASE_URL}/posts/{post_id}",
@@ -55,7 +59,7 @@ def test_get_post_success(api_session, post_id, title, status_code):
         (5, 500),
     ],
 )
-def test_get_post_errors(api_session, post_id, status_code):
+def test_get_post_errors(api_session: Session, post_id: int, status_code: int) -> None:
     responses.add(
         responses.GET,
         f"{BASE_URL}/posts/{post_id}",
@@ -67,7 +71,7 @@ def test_get_post_errors(api_session, post_id, status_code):
     assert response.status_code == status_code
 
 
-def test_get_post_with_mocker(mocker):
+def test_get_post_with_mocker(mocker: MockerFixture) -> None:
     mock_response = mocker.Mock()
     mock_response.status_code = 200
     mock_response.json.return_value = {
