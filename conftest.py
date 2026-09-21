@@ -1,8 +1,10 @@
 import random
 from collections.abc import Generator
 
+import allure
 import pytest
 import requests
+from allure_commons.types import AttachmentType
 from playwright.sync_api import Page, sync_playwright
 from requests import Session
 
@@ -29,3 +31,25 @@ def api_session() -> Generator[Session, None, None]:
     session = requests.Session()
     yield session
     session.close()
+
+
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call" and report.failed:
+        page = item.funcargs.get("page")
+
+        if page and not page.is_closed():
+            allure.attach(
+                page.screenshot(full_page=True),
+                name="failure_screenshot",
+                attachment_type=AttachmentType.PNG,
+            )
+
+            allure.attach(
+                page.content(),
+                name="failure_page_source",
+                attachment_type=AttachmentType.HTML,
+            )
