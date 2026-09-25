@@ -21,7 +21,7 @@
 ### 1. Клонирование репозитория
 
 ```bash
-git clone [https://github.com/IJustWantWriteCode/QA_Feels_Good.git](https://github.com/IJustWantWriteCode/QA_Feels_Good.git)
+git clone https://github.com/IJustWantWriteCode/QA_Feels_Good.git
 cd QA_Feels_Good
 ```
 
