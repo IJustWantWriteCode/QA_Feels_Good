@@ -29,7 +29,7 @@ jobs:
       - name: Install Linting Tools
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt black flake8 Flake8-pyproject isort mypy
+          pip install -r requirements.txt pydantic black flake8 Flake8-pyproject isort mypy
 
       - name: Run Linters & Type Checks
         run: |
