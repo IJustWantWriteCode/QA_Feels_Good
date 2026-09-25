@@ -1,0 +1,1 @@
+{"uuid": "dccbc51e-5a23-453c-9a80-efd829233a2c", "befores": [{"name": "armor", "status": "passed", "start": 1790355469798, "stop": 1790355469798}], "afters": [{"name": "armor::<lambda>", "start": 1790355471409}], "start": 1790355469798, "stop": 1790355471409}
