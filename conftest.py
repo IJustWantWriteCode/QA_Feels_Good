@@ -1,5 +1,5 @@
 import random
-from collections.abc import Generator
+from typing import Any, Generator
 
 import allure
 import pytest
@@ -34,22 +34,32 @@ def api_session() -> Generator[Session, None, None]:
 
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
-def pytest_runtest_makereport(item, call):
+def pytest_runtest_makereport(
+    item: pytest.Item, call: pytest.CallInfo[Any]
+) -> Generator[None, Any, None]:
     outcome = yield
     report = outcome.get_result()
 
     if report.when == "call" and report.failed:
-        page = item.funcargs.get("page")
+        funcargs = getattr(item, "funcargs", {})
+        page = funcargs.get("page")
 
         if page and not page.is_closed():
-            allure.attach(
-                page.screenshot(full_page=True),
-                name="failure_screenshot",
-                attachment_type=AttachmentType.PNG,
-            )
-
-            allure.attach(
-                page.content(),
-                name="failure_page_source",
-                attachment_type=AttachmentType.HTML,
-            )
+            try:
+                screenshot = page.screenshot(timeout=5000, full_page=True)
+                allure.attach(
+                    screenshot,
+                    name="failure_screenshot",
+                    attachment_type=AttachmentType.PNG,
+                )
+            except Exception as e:
+                print(f"\n[Warning] Не удалось сделать скриншот для Allure: {e}")
+            try:
+                content = page.content()
+                allure.attach(
+                    content,
+                    name="failure_page_source",
+                    attachment_type=AttachmentType.HTML,
+                )
+            except Exception as e:
+                print(f"\n[Warning] Не удалось получить DOM-дерево для Allure: {e}")
