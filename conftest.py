@@ -26,6 +26,14 @@ def page() -> Generator[Page, None, None]:
         browser.close()
 
 
+@pytest.fixture(autouse=True)
+def block_ads_and_analytics(page: Page) -> None:
+    page.route(
+        "**/*{google,doubleclick,adservice,adsystem,googlesyndication,analytics}*/**",
+        lambda route: route.abort(),
+    )
+
+
 @pytest.fixture(scope="session")
 def api_session() -> Generator[Session, None, None]:
     session = requests.Session()
