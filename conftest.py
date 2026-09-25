@@ -11,7 +11,7 @@ from requests import Session
 
 @pytest.fixture()
 def random_int_for_test() -> tuple[int, int]:
-    a, b = random.randint(1, 9), random.randint(1, 9)
+    a, b = random.sample(range(1, 100), 2)
     return a, b
 
 
