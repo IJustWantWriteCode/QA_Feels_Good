@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, expect
+
 from .base_page import BasePage
 from .products_page import ProductsPage
 

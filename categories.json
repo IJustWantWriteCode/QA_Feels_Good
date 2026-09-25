@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Flaky tests",
+    "matchedStatuses": ["failed", "broken"],
+    "flaky": true
+  },
+  {
+    "name": "Product defects",
+    "matchedStatuses": ["failed"],
+    "traceRegex": ".*AssertionError.*|.*assert.*"
+  },
+  {
+    "name": "Test defects",
+    "matchedStatuses": ["broken"],
+    "traceRegex": ".*AttributeError.*|.*TypeError.*"
+  }
+]

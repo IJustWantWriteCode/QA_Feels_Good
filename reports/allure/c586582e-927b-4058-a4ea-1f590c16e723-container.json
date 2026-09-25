@@ -1,0 +1,1 @@
+{"uuid": "5fa5e969-9c8d-46c9-86c9-5cbf4e1c0309", "befores": [{"name": "percent_crit", "status": "passed", "start": 1790355468422, "stop": 1790355468422}], "afters": [{"name": "percent_crit::<lambda>", "start": 1790355469784}], "start": 1790355468422, "stop": 1790355469784}
