@@ -47,8 +47,7 @@ dev = [
 [tool.mypy]
 python_version = "3.12"
 ignore_missing_imports = true
-disallow_untyped_decorators = false
-disallow_subclassing_any = false
+strict = true
 plugins = ["pydantic.mypy"]
 
 [[tool.mypy.overrides]]
@@ -57,4 +56,3 @@ module = [
     "tests"
 ]
 disallow_untyped_decorators = false
-disallow_subclassing_any = false

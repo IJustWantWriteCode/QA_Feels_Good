@@ -36,7 +36,7 @@ jobs:
           black --check .
           flake8 .
           isort --check-only .
-          mypy tests/ --strict
+          mypy tests/
 
   test-ui-api:
     name: Run Tests (Py ${{ matrix.python-version }})
