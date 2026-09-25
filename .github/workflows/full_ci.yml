@@ -79,7 +79,7 @@ jobs:
           pip install allure-pytest pytest-xdist
 
       - name: Install Playwright Browsers & OS Dependencies
-        run: playwright install --with-deps chromium
+        run: python -m playwright install --with-deps chromium
 
       - name: Run Tests
         run: pytest -n 2 --alluredir=reports/allure
